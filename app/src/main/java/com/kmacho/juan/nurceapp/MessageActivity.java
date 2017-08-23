@@ -57,7 +57,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onResponse(Call<MenssageResponse> call, Response<MenssageResponse> response) {
                 if (response.isSuccessful()) {
                     progressDialog.dismiss();
-                    for (int i=0; i<response.body().getData().size();i++){
+                    for (int i=response.body().getData().size()-1; i>=0;i--){
                         System.out.println(response);
                         int id = response.body().getData().get(i).getId();
                         int id_chat = response.body().getData().get(i).getId_chat();
