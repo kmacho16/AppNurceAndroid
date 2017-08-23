@@ -1,0 +1,93 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.kmacho.juan.nurceapp.mapsFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/miMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"></com.google.android.gms.maps.MapView>
+
+        <ImageView
+            android:id="@+id/market"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="201dp"
+            android:src="@mipmap/market_person" />
+
+        <Button
+            android:id="@+id/resta"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="-"
+            android:textSize="25dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/radio"
+            android:layout_toStartOf="@+id/radio" />
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:background="#aaffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"></LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/resta"
+            android:layout_centerHorizontal="true"
+            android:text="Radio de busqueda "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignLeft="@+id/market"
+            android:layout_alignStart="@+id/market"
+            android:text="1"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/suma"
+            android:layout_alignBottom="@+id/suma"
+            android:layout_alignEnd="@+id/market"
+            android:layout_alignRight="@+id/market"
+            android:text="Km"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/suma"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="+"
+            android:textSize="25dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3" />
+    </RelativeLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+</FrameLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f776e</color>
+    <color name="colorPrimaryDark">#3f776e</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textInputErrorColor">#e6212e</color>
+    <color name="fondo_trans">#86ffffff</color>
+    <color name="color_chat">#caec739c</color>
+</resources>

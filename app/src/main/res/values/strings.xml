@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">NurceApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="err_name">El campo NOMBRE es obligatorio </string>
+    <string name="err_email">El campo Email debe ser en formato Email </string>
+    <string name="err_password">El campo Password debe tener al menos 6 caracteres </string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

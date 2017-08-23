@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "462457251278",
+    "firebase_url": "https://nurceapp.firebaseio.com",
+    "project_id": "nurceapp",
+    "storage_bucket": "nurceapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462457251278:android:b15d91a8f3d6e0d8",
+        "android_client_info": {
+          "package_name": "com.kmacho.juan.nurceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462457251278-8n3juv4s7ufqvntaj5bt412c8ov8mtcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg7J2vnLftbOp7weDfgYQsx5PZsWY-Brg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
