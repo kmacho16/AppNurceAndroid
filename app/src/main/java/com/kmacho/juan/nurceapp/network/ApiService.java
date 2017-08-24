@@ -55,4 +55,8 @@ public interface ApiService {
     @POST("chat/personal")
     @FormUrlEncoded
     Call<MenssageResponse> mensajesPersonal(@Field("id") int id_chat);
+
+    @POST("chat/mensaje")
+    @FormUrlEncoded
+    Call<respuestasData> sendMensaje(@Field("id_chat") String id_chat, @Field("to_id_user") String to_id_user, @Field("mensaje")String mensaje);
 }

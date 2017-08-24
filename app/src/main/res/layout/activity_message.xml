@@ -7,38 +7,55 @@
     tools:context="com.kmacho.juan.nurceapp.MessageActivity"
     android:background="@mipmap/rsz_fondo"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp"
         android:background="@color/fondo_trans"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="8dp"
+        android:padding="15dp"
+        android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
-        android:weightSum="1">
+        tools:layout_editor_absoluteY="8dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerMesage"
-        android:visibility="visible"
-        android:layout_weight="0.94">
-
-    </android.support.v7.widget.RecyclerView>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mensaje">
-
-        <android.support.design.widget.TextInputEditText
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerMesage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_weight="0.94"
+            android:visibility="visible">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="11">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:hint="Mensaje">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_send_black_24dp"
+                android:id="@+id/btn_send"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 

@@ -55,23 +55,6 @@ public class AdapterMensajes  extends RecyclerView.Adapter<AdapterMensajes.ViewH
         MensajesList mList;
         int color = Color.parseColor("#FFCFDACF");
 
-       /* switch (listMensajes.get(position).getTipoMensaje()){
-            case "2":
-                r1.addRule(RelativeLayout.ALIGN_PARENT_END);
-                mList = listMensajes.get(position);
-                holder.textMensaje.setText(mList.getMensaje());
-                holder.cardView.setLayoutParams(r1);
-                holder.cardView.setRadius(radius);
-            case "1":
-                //r1.addRule(RelativeLayout.ALIGN_PARENT_END);
-                mList = listMensajes.get(position);
-                holder.textMensaje.setText(mList.getMensaje());
-                holder.cardView.setLayoutParams(r1);
-                holder.cardView.setRadius(radius);
-            }holder.cardView.setLayoutParams(r1);
-            */
-        //r1.addRule(RelativeLayout.ALIGN_PARENT_END);
-
         mList = listMensajes.get(position);
         holder.textMensaje.setText(mList.getMensaje());
         holder.textoFecha.setText(mList.getCreated_at());

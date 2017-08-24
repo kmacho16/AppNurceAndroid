@@ -1,14 +1,18 @@
 package com.kmacho.juan.nurceapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.kmacho.juan.nurceapp.Recyclers.AdapterMensajes;
 import com.kmacho.juan.nurceapp.Recyclers.MensajesList;
 import com.kmacho.juan.nurceapp.entities.MenssageResponse;
+import com.kmacho.juan.nurceapp.entities.infoResponse;
+import com.kmacho.juan.nurceapp.entities.respuestasData;
 import com.kmacho.juan.nurceapp.network.ApiService;
 import com.kmacho.juan.nurceapp.network.RetrofitBuilder;
 
@@ -16,6 +20,8 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,13 +35,23 @@ public class MessageActivity extends AppCompatActivity {
     IdUserPreferences idUserPreferences;
     Call<MenssageResponse> call;
     List<MensajesList> mensajesLists;
+
     ApiService service;
+    Call<respuestasData> callData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        ButterKnife.bind(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String idi = bundle.get("id_chat").toString();
+        String to_id = bundle.get("to_id_user").toString();
+
+        Toast.makeText(this, "get "+idi+" "+to_id, Toast.LENGTH_SHORT).show();
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
         idUserPreferences = IdUserPreferences.getInstance(getSharedPreferences("Contex",MODE_PRIVATE));
@@ -46,6 +62,8 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         loadRecyclerViewData();
     }
+
+
 
     public void loadRecyclerViewData(){
         final ProgressDialog progressDialog = new ProgressDialog(this);

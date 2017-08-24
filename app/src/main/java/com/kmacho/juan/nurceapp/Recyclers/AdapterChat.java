@@ -2,6 +2,7 @@ package com.kmacho.juan.nurceapp.Recyclers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.security.AccessController.getContext;
 
 /**
@@ -28,6 +30,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
     List<ChatList> listChat;
     private Context context;
     Intent intent;
+    int idUser;
+    SharedPreferences idUserPreferences;
 
 
 
@@ -40,6 +44,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, parent, false);
         this.context = parent.getContext();
+        idUserPreferences = parent.getContext().getSharedPreferences("Contex",MODE_PRIVATE);
+        idUser = Integer.parseInt(idUserPreferences.getAll().get("ID_USER").toString());
 
         return new ViewHolder(v);
     }
@@ -56,7 +62,16 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
         holder.cardChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 intent = new Intent(context, MessageActivity.class);
+                intent.putExtra("id_chat",mList.getId_chat());
+
+                if (idUser==mList.getTo_id_user()){
+                    intent.putExtra("to_id_user",mList.getId_user());
+                }else {
+                    intent.putExtra("to_id_user",mList.getTo_id_user());
+                }
+
                 context.startActivity(intent);
             }
         });

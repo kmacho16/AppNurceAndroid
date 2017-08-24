@@ -82,7 +82,7 @@ public class FragmentMessages extends Fragment {
 
                         }*/
 
-                        ChatList item = new ChatList(nombre,response.body().getData().get(i).getTo_nombre(), response.body().getData().get(i).getCreated_at(),response.body().getData().get(i).getMensaje(),foto_perfil,"to_img",response.body().getData().get(i).getId_chat(),2,5);
+                        ChatList item = new ChatList(nombre,response.body().getData().get(i).getTo_nombre(), response.body().getData().get(i).getCreated_at(),response.body().getData().get(i).getMensaje(),foto_perfil,"to_img",response.body().getData().get(i).getId_chat(),response.body().getData().get(i).getId_user(),response.body().getData().get(i).getTo_id_user());
 
 
                         chatLists.add(item);
