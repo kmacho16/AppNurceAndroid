@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kmacho.juan.nurceapp.entities.infoResponse;
 import com.kmacho.juan.nurceapp.network.ApiService;
 import com.kmacho.juan.nurceapp.network.RetrofitBuilder;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -51,6 +53,12 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.foto_perfil)
     ImageView foto_perfil;
 
+    @BindView(R.id.loadPage)
+    LinearLayout loadPage;
+
+    @BindView(R.id.layoutProfile)
+    LinearLayout layoutProfile;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -65,7 +73,7 @@ public class ProfileFragment extends Fragment {
 
         tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs",getContext().MODE_PRIVATE));
         idUserPreferences = IdUserPreferences.getInstance(this.getActivity().getSharedPreferences("Contex",getContext().MODE_PRIVATE));
-        Toast.makeText(getActivity(), "AHA "+idUserPreferences.getId(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "AHA "+idUserPreferences.getId(), Toast.LENGTH_SHORT).show();
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class,tokenManager);
         getPosts();
 
@@ -73,9 +81,11 @@ public class ProfileFragment extends Fragment {
     }
 
     void getPosts(){
-        final ProgressDialog progressDialog = new ProgressDialog(this.getActivity());
+        /*final ProgressDialog progressDialog = new ProgressDialog(this.getActivity());
         progressDialog.setMessage("Cargando informacion");
-        progressDialog.show();
+        progressDialog.show();*/
+
+
         call = service.usuario();
         call.enqueue(new Callback<infoResponse>() {
             @Override
@@ -83,13 +93,26 @@ public class ProfileFragment extends Fragment {
                 Log.w(TAG, "onResponse: " + response.body());
 
                 if (response.isSuccessful()) {
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
+                    loadPage.setVisibility(View.GONE);
+                    layoutProfile.setVisibility(View.VISIBLE);
                     userName.setText(response.body().getData().get(0).getName());
                     userLast.setText(response.body().getData().get(0).getLast_name());
                     userTele.setText(response.body().getData().get(0).getTelefono());
                     userMail.setText(response.body().getData().get(0).getEmail());
+
+                    TextView name = (TextView) getActivity().findViewById(R.id.my_name);
+                    TextView email = (TextView) getActivity().findViewById(R.id.my_email);
+                    ImageView foto = (ImageView) getActivity().findViewById(R.id.my_photo);
                    // userFoto.setText(userFoto.getText() + response.body().getData().get(0).getFoto_perfil());
-                    Picasso.with(getContext()).load("http://app-nurce-hero.herokuapp.com/uploads/"+response.body().getData().get(0).getFoto_perfil()).into(foto_perfil);
+
+                    name.setText(response.body().getData().get(0).getName());
+                    email.setText(response.body().getData().get(0).getEmail());
+
+
+                    Picasso.with(getContext()).load("http://app-nurce-hero.herokuapp.com/uploads/"+response.body().getData().get(0).getFoto_perfil()).memoryPolicy(MemoryPolicy.NO_CACHE).into(foto_perfil);
+                    Picasso.with(getContext()).load("http://app-nurce-hero.herokuapp.com/uploads/"+response.body().getData().get(0).getFoto_perfil()).memoryPolicy(MemoryPolicy.NO_CACHE).into(foto);
+
                 } else {
                     getActivity().finish();
                     startActivity(new Intent(getActivity(), Login.class));

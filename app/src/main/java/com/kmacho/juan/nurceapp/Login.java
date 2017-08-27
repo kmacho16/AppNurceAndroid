@@ -105,9 +105,10 @@ public class Login extends AppCompatActivity {
                             handleErrors(response.errorBody());
                         }
                         if (response.code() == 401) {
-
                             ApiError apiError = Utils.converErrors(response.errorBody());
                             Toast.makeText(Login.this, apiError.getMessage(), Toast.LENGTH_SHORT).show();
+                            loader.setVisibility(View.GONE);
+                            btn.setEnabled(true);
                         }
                     }
                 }
@@ -117,6 +118,9 @@ public class Login extends AppCompatActivity {
                     Log.w(TAG, "onFailure: " + t.getMessage());
                 }
             });
+        }else {
+            loader.setVisibility(View.GONE);
+            btn.setEnabled(true);
         }
 
     }
@@ -136,12 +140,13 @@ public class Login extends AppCompatActivity {
                 tilPassword.setError(error.getValue().get(0));
             }
         }
+        loader.setVisibility(View.GONE);
+        btn.setEnabled(true);
     }
 
     public void setUpRules(){
         validator.addValidation(this,R.id.til_email, Patterns.EMAIL_ADDRESS,R.string.err_email);
         validator.addValidation(this,R.id.til_password,RegexTemplate.NOT_EMPTY,R.string.err_password);
-
     }
 
 

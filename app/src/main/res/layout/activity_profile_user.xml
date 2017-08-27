@@ -11,106 +11,228 @@
 
 
     <!-- TODO: Update blank fragment layout -->
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+       <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:id="@+id/loadPage"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/color_btn"
+                android:text="CARGANDO INFORMACION"/>
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/fondo_trans"
+        android:visibility="visible"
         android:layout_margin="20dp"
-        android:padding="10dp">
+        android:id="@+id/showProfile"
+        android:weightSum="1">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_message" />
 
         <LinearLayout
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
 
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/foto_perfil"
-            android:src="@drawable/ic_person"
-            />
-    </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:drawable/sym_def_app_icon"
+                android:elevation="12dp"
+                android:shape="ring"
+                app:cardCornerRadius="60dp">
 
+                <ImageView
+                    android:id="@+id/foto_perfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_person"
+                    android:scaleType="centerCrop"/>
+
+            </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/dista"
+                    android:layout_centerHorizontal="true">
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_star_black"
+                        android:layout_alignTop="@+id/imageView6"
+                        android:layout_toRightOf="@+id/imageView6"
+                        android:layout_toEndOf="@+id/imageView6" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dista"
+                        android:layout_toEndOf="@+id/imageView4"
+                        android:layout_toRightOf="@+id/imageView4"
+                        android:src="@drawable/ic_star_black" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dista"
+                        android:layout_toEndOf="@+id/imageView2"
+                        android:layout_toRightOf="@+id/imageView2"
+                        android:src="@drawable/ic_star_black" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/foto_perfil"
+                        android:layout_alignStart="@+id/foto_perfil"
+                        android:layout_below="@+id/dista"
+                        android:src="@drawable/ic_star" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_star"
+                        android:layout_below="@+id/dista"
+                        android:layout_alignLeft="@+id/dista"
+                        android:layout_alignStart="@+id/dista" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+    </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_btn"
+            android:text="ENVIAR MENSAJE"
+            android:drawableEnd="@drawable/ic_email"
+            android:drawableRight="@drawable/ic_email"
+            android:paddingRight="15dp"
+            android:layout_marginBottom="10dp"
+            />
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+            android:background="#fff"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/titulo"
             android:text="Nombre: "
-            android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:textColor="@color/color_btn"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_name"
             android:text="aa "
-            android:textSize="16dp"/>
+            android:textSize="18dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Apellido: "
-            android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:textColor="@color/color_btn"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_lastname"
             android:text="Apellido: "
-            android:textSize="16dp"/>
+            android:textSize="18dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Telefono: "
-            android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:textColor="@color/color_btn"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_telefono"
             android:text="telefono: "
-            android:textSize="16dp"/>
+            android:textSize="18dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email: "
-            android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:textColor="@color/color_btn"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_email"
             android:text="Email: "
-            android:textSize="16dp"/>
+            android:textSize="18dp"/>
     </LinearLayout>
 
 
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

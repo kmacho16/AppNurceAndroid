@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         String Token = FirebaseInstanceId.getInstance().getToken();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        
+
+
         System.out.println("El token "+ Token);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
         idUserPreferences = IdUserPreferences.getInstance(getSharedPreferences("Contex",MODE_PRIVATE));
@@ -80,6 +86,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //getPosts();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -107,13 +115,28 @@ public class MainActivity extends AppCompatActivity
                 TextView name = (TextView) findViewById(R.id.my_name);
                 TextView email = (TextView) findViewById(R.id.my_email);
                 ImageView foto = (ImageView) findViewById(R.id.my_photo);
+                foto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setTitle("Primer Fragment");
+                        ProfileFragment fragment = new ProfileFragment();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.frame,fragment,"Fragment 1");
+                        fragmentTransaction.commit();
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+
+                    }
+                });
+
+
                 name.setText(response.body().getData().get(0).getName());
                 email.setText(response.body().getData().get(0).getEmail());
                 int id = response.body().getData().get(0).getId_rol();
                 System.out.println("estos datos "+response.body().getData().get(0).getName()+" - "+response.body().getData().get(0).getId()+" - "+response.body().getData().get(0).getId_rol());
 
                 idUserPreferences.saveId(response.body().getData().get(0).getId());
-                Toast.makeText(MainActivity.this, "AHA "+idUserPreferences.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "AHA "+idUserPreferences.getId(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
                 //Picasso.with(getContext()).load("http://app-nurce-hero.herokuapp.com/uploads/"+response.body().getData().get(0).getFoto_perfil()).into(foto_perfil);
                 Picasso.with(getApplicationContext()).load("http://app-nurce-hero.herokuapp.com/uploads/"+response.body().getData().get(0).getFoto_perfil()).into(foto);
@@ -175,13 +198,6 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame,fragment,"Fragment 1");
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_edit) {
-            setTitle("Segundo Fragment");
-            UpdateProfile fragment = new UpdateProfile();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame,fragment,"Fragment 2");
-            fragmentTransaction.commit();
-
         } else if (id == R.id.nav_search) {
             setTitle("Fragment Maps");
             mapsFragment fragment = new mapsFragment();
@@ -199,9 +215,6 @@ public class MainActivity extends AppCompatActivity
 
             /*Intent intent = new Intent(this,MessageActivity.class);
             startActivity(intent);*/
-
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_logout) {
             tokenManager.deleteToken();
             finish();
@@ -212,4 +225,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

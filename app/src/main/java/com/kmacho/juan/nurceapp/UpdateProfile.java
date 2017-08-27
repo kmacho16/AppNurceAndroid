@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
@@ -99,6 +101,15 @@ public class UpdateProfile extends Fragment {
     @BindView(R.id.btn_actualizar)
     Button btn_actualizar;
 
+    @BindView(R.id.loader)
+    ProgressBar progressBar;
+
+    @BindView(R.id.loadPage)
+    LinearLayout loadPage;
+
+    @BindView(R.id.layoutEdit)
+    LinearLayout layoutEdit;
+
 
     AwesomeValidation validator;
     private static final int PICK_IMAGE = 100;
@@ -125,19 +136,11 @@ public class UpdateProfile extends Fragment {
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class,tokenManager);
         validator = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
         setUpRules();
-
-
-
-
         getDatos();
-
         return v;
     }
 
     void getDatos(){
-        final ProgressDialog progressDialog = new ProgressDialog(this.getActivity());
-        progressDialog.setMessage("Cargando informacion");
-        progressDialog.show();
         call = service.usuario();
         call.enqueue(new Callback<infoResponse>() {
             @Override
@@ -145,14 +148,17 @@ public class UpdateProfile extends Fragment {
                 Log.w(TAG, "onResponse: " + response.body());
 
                 if (response.isSuccessful()) {
-                    progressDialog.dismiss();
+
+                    loadPage.setVisibility(View.GONE);
+                    layoutEdit.setVisibility(View.VISIBLE);
+
                     //tilName(response.body().getData().get(0).getName());
                     nombreText.setText(response.body().getData().get(0).getName());
                     apellidoText.setText(response.body().getData().get(0).getLast_name());
                     telefonoText.setText(response.body().getData().get(0).getTelefono());
                     emailText.setText(response.body().getData().get(0).getEmail());
                     // userFoto.setText(userFoto.getText() + response.body().getData().get(0).getFoto_perfil());
-                    //Picasso.with(getContext()).load("http://192.168.0.24:443/uploads/"+response.body().getData().get(0).getFoto_perfil()).into(foto_perfil);
+                    Picasso.with(getContext()).load("http://app-nurce-hero.herokuapp.com/uploads/"+response.body().getData().get(0).getFoto_perfil()).into(miImagen);
 
 
                 } else {
@@ -170,6 +176,8 @@ public class UpdateProfile extends Fragment {
 
     @OnClick(R.id.btn_actualizar)
     void sedData(){
+        btn_actualizar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         String name = tilName.getEditText().getText().toString();
         String last_name = tilLast.getEditText().getText().toString();
         String phone = tilPhone.getEditText().getText().toString();
@@ -182,24 +190,21 @@ public class UpdateProfile extends Fragment {
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),archivo);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file",archivo.getName(),requestFile);*/
 
-
-
-
         tilName.setError(null);
         tilEmail.setError(null);
         tillPassword.setError(null);
         validator.clear();
         if(validator.validate()){
-        callAccess = service.updateProfile(name,last_name,email,phone,password);
+        callAccess = service.updateProfile(name,last_name,email,phone,password,imageToString());
         callAccess.enqueue(new Callback<respuestasData>() {
             @Override
             public void onResponse(Call<respuestasData> call, Response<respuestasData> response) {
                 if (response.isSuccessful()) {
                     Log.w(TAG, "onResponse1: " + response);
-                    getActivity().setTitle("Primer Fragment");
+                    getActivity().setTitle("Profile Fragment");
                     ProfileFragment fragment = new ProfileFragment();
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.frame,fragment,"Fragment 1");
+                    fragmentTransaction.replace(R.id.frame,fragment,"Actualizar");
                     fragmentTransaction.commit();
                 } else {
                     Log.w(TAG, "onResponse2: "+response);
@@ -209,6 +214,7 @@ public class UpdateProfile extends Fragment {
 
             @Override
             public void onFailure(Call<respuestasData> call, Throwable t) {
+                System.out.println("ERROR GRANDE "+t.getMessage());
 
             }
         });
@@ -227,23 +233,51 @@ public class UpdateProfile extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE){
             imageUri = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),imageUri);
-                miImagen.setImageURI(imageUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),imageUri);
+            //miImagen.setImageURI(imageUri);
+            imageUri = data.getData();
+            CropImage();
 
-        }else{
+        }if(requestCode==2){
+            if (data!=null){
+                Bundle bundle = data.getExtras();
+                bitmap = bundle.getParcelable("data");
+                miImagen.setImageBitmap(bitmap);
+                String datos = imageToString();
+                System.out.println("Datos "+datos);
+            }
+        }
+        else{
             Toast.makeText(getActivity(), "sin imagen seleccionada", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    public void CropImage(){
+        Intent CropIntent = new Intent("com.android.camera.action.CROP");
+        CropIntent.setDataAndType(imageUri,"image/*");
+
+        CropIntent.putExtra("crop","true");
+        CropIntent.putExtra("outputX",350);
+        CropIntent.putExtra("outputY",350);
+        CropIntent.putExtra("aspectX",5);
+        CropIntent.putExtra("aspectY",5);
+        CropIntent.putExtra("scaleUpIfNeeded",true);
+        CropIntent.putExtra("return-data",true);
+
+        startActivityForResult(CropIntent,2);
+
     }
 
     private String imageToString(){
         ByteArrayOutputStream byteArrayString = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayString);
-        byte[] imgByte = byteArrayString.toByteArray();
-        return Base64.encodeToString(imgByte,Base64.DEFAULT);
+        if (bitmap==null){
+            return "";
+        }else{
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayString);
+            byte[] imgByte = byteArrayString.toByteArray();
+            return Base64.encodeToString(imgByte,Base64.DEFAULT);
+        }
     }
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
@@ -265,9 +299,14 @@ public class UpdateProfile extends Fragment {
         validator.addValidation(getActivity(),R.id.til_name, RegexTemplate.NOT_EMPTY,R.string.err_name);
         validator.addValidation(getActivity(),R.id.til_email, Patterns.EMAIL_ADDRESS,R.string.err_email);
         validator.addValidation(getActivity(),R.id.til_password,"[a-zA-Z0-9]{6}",R.string.err_password);
+        btn_actualizar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     private void handleErrors(ResponseBody response){
+
+        btn_actualizar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         ApiError apiError = Utils.converErrors(response);
         for (Map.Entry<String,List<String>>error:apiError.getErrors().entrySet()){
             if(error.getKey().equals("name")){
@@ -281,6 +320,8 @@ public class UpdateProfile extends Fragment {
             }
         }
     }
+
+
 
 
 }

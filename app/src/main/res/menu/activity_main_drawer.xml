@@ -2,30 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_person"
-            android:title="Perfil" />
-        <item
-            android:id="@+id/nav_edit"
-            android:icon="@drawable/ic_edit_black_24dp"
-            android:title="Editar Perfil" />
+
+
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/ic_search"
+            android:icon="@drawable/ic_location"
             android:title="Buscar personal" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:icon="@drawable/ic_message"
+            android:title="Mensajes" />
+        <item
+            android:id="@+id/event_manage"
+            android:icon="@drawable/ic_event"
+            android:title="Calendario" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_person"
+                android:title="Perfil" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_exit"

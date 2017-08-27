@@ -46,7 +46,9 @@
                     android:drawablePadding="10dp"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:id="@+id/mensaje"
+                    />
             </android.support.design.widget.TextInputLayout>
             <Button
                 android:layout_width="15dp"

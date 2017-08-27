@@ -39,7 +39,7 @@ public interface ApiService {
 
     @POST("usuario/editar")
     @FormUrlEncoded
-    Call<respuestasData> updateProfile(@Field("name") String name, @Field("last_name") String last_name, @Field("email")String email, @Field("telefono") String telefono, @Field("password") String password);
+    Call<respuestasData> updateProfile(@Field("name") String name, @Field("last_name") String last_name, @Field("email")String email, @Field("telefono") String telefono, @Field("password") String password,@Field("foto_perfil") String imagen);
 
     @POST("personal/find")
     @FormUrlEncoded

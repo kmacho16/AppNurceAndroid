@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kmacho.juan.nurceapp.MainActivity;
+import com.kmacho.juan.nurceapp.MessageActivity;
 import com.kmacho.juan.nurceapp.R;
 
 /**
@@ -20,9 +21,12 @@ import com.kmacho.juan.nurceapp.R;
 public class MyFireBaseMessageService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,MessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
+        intent.putExtra("id_chat",remoteMessage.getData().get("id_chat"));
+        intent.putExtra("to_id_user",remoteMessage.getData().get("to_id_user"));
+        int id = Integer.parseInt(remoteMessage.getData().get("id_chat"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,id,intent,PendingIntent.FLAG_ONE_SHOT);
 
         Uri sound= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         //builder.setSound(sound);

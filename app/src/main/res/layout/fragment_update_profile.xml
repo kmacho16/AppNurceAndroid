@@ -6,128 +6,191 @@
     tools:context="com.kmacho.juan.nurceapp.UpdateProfile"
     android:background="@mipmap/rsz_fondo">
     <!-- TODO: Update blank fragment layout -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#86ffffff"
-    android:layout_margin="20dp"
-    android:padding="10dp">
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300px"
-        android:id="@+id/imagen"
-        android:background="@color/cardview_dark_background"
-        />
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_name"
-        android:layout_width="match_parent"
-        android:hint="Name"
-        android:layout_height="wrap_content"
-        >
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/nombreText"
-            android:maxLines="1"
-            android:drawableStart="@drawable/ic_person"
-            android:drawableLeft="@drawable/ic_person"
-            android:drawablePadding="10dp"
-            android:imeOptions="actionNext"
-            />
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_laste"
-        android:layout_width="match_parent"
-        android:hint="Apellido"
-        android:layout_height="wrap_content"
-        >
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/apellidoText"
-            android:maxLines="1"
-            android:drawableStart="@drawable/ic_person"
-            android:drawableLeft="@drawable/ic_person"
-            android:drawablePadding="10dp"
-            android:imeOptions="actionNext"
-            />
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_phone"
-        android:layout_width="match_parent"
-        android:hint="Telefono"
-        android:layout_height="wrap_content"
-        >
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/telefonoText"
-            android:maxLines="1"
-            android:drawableStart="@drawable/ic_local_phone"
-            android:drawableLeft="@drawable/ic_local_phone"
-            android:drawablePadding="10dp"
-            android:imeOptions="actionNext"
-            />
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:visibility="visible"
+             android:id="@+id/loadPage"
+             android:orientation="vertical"
+             android:gravity="center">
+             <ProgressBar
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content" />
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textAlignment="center"
+                 android:textStyle="bold"
+                 android:textColor="@color/color_btn"
+                 android:text="CARGANDO INFORMACION"/>
+         </LinearLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_email"
-        android:layout_width="match_parent"
-        android:hint="Email"
-        android:layout_height="wrap_content"
-        >
-        <android.support.design.widget.TextInputEditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:id="@+id/emailText"
-            android:maxLines="1"
-            android:drawableStart="@drawable/ic_email"
-            android:drawableLeft="@drawable/ic_email"
-            android:drawablePadding="10dp"
-            android:imeOptions="actionNext"
-            />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:id="@+id/layoutEdit"
+            android:background="#86ffffff"
+            android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_password"
-        android:layout_width="match_parent"
-        android:hint="Password"
-        android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        >
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/passwordText"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawableLeft="@drawable/ic_lock"
-            android:drawablePadding="10dp"
-            android:imeOptions="actionDone"
-            />
-    </android.support.design.widget.TextInputLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_actualizar"
-        android:text="Actualizar"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:drawable/sym_def_app_icon"
+                    android:elevation="12dp"
+                    android:shape="ring"
+                    app:cardCornerRadius="50dp">
 
-    <ProgressBar
-        android:id="@+id/loader"
-        android:visibility="invisible"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+                    <ImageView
+                        android:id="@+id/imagen"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_person" />
+
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/nombreText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_person"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_person"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_laste"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/apellidoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_person"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_person"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefono">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/telefonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_local_phone"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_local_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/emailText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:passwordToggleEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/passwordText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                >
+
+                <Button
+                    android:id="@+id/btn_actualizar"
+                    android:background="#FF9FAB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Actualizar"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ProgressBar
+                    android:id="@+id/loader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </FrameLayout>

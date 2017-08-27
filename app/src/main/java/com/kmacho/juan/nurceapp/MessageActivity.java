@@ -2,6 +2,7 @@ package com.kmacho.juan.nurceapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -35,9 +37,16 @@ public class MessageActivity extends AppCompatActivity {
     IdUserPreferences idUserPreferences;
     Call<MenssageResponse> call;
     List<MensajesList> mensajesLists;
+    String idChat;
+    String to_id;
+    public ProgressDialog progressDialog,progressDialog2;
+
 
     ApiService service;
     Call<respuestasData> callData;
+
+    @BindView(R.id.mensaje)
+    TextInputEditText mensajeInput;
 
 
     @Override
@@ -48,10 +57,10 @@ public class MessageActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String idi = bundle.get("id_chat").toString();
-        String to_id = bundle.get("to_id_user").toString();
+        idChat = bundle.get("id_chat").toString();
+        to_id = bundle.get("to_id_user").toString();
 
-        Toast.makeText(this, "get "+idi+" "+to_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "get "+idChat+" "+to_id, Toast.LENGTH_SHORT).show();
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
         idUserPreferences = IdUserPreferences.getInstance(getSharedPreferences("Contex",MODE_PRIVATE));
@@ -62,14 +71,39 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         loadRecyclerViewData();
     }
+@OnClick(R.id.btn_send)
+public void sendMensaje(){
+    //Toast.makeText(this, "Mensaje "+mensajeInput.getText()+" id_chat "+idChat+" To_idChat "+to_id, Toast.LENGTH_SHORT).show();
+    progressDialog2 = new ProgressDialog(this);
+    progressDialog2.setMessage("Cargando informacion");
+    progressDialog2.show();
+    callData = service.sendMensaje(idChat,to_id,mensajeInput.getText().toString());
+    callData.enqueue(new Callback<respuestasData>() {
+        @Override
+        public void onResponse(Call<respuestasData> call, Response<respuestasData> response) {
+            if (response.isSuccessful()){
+                loadRecyclerViewData();
+                mensajeInput.setText("");
+                progressDialog2.dismiss();
+            }else{
+                System.out.println("Error "+response);
 
+            }
+        }
+
+        @Override
+        public void onFailure(Call<respuestasData> call, Throwable t) {
+            System.out.println("ERROR "+t.getMessage());
+        }
+    });
+}
 
 
     public void loadRecyclerViewData(){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando informacion");
         progressDialog.show();
-        call = service.mensajesPersonal(1);
+        call = service.mensajesPersonal(Integer.parseInt(idChat));
         call.enqueue(new Callback<MenssageResponse>() {
             @Override
             public void onResponse(Call<MenssageResponse> call, Response<MenssageResponse> response) {
