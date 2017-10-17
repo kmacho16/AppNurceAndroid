@@ -101,7 +101,6 @@ public void dismissListener(View v){
 
 
     void getPosts(){
-
         call = service.findProfile(Integer.parseInt(mid));
         call.enqueue(new Callback<infoResponse>() {
             public static final String TAG = "aqui" ;

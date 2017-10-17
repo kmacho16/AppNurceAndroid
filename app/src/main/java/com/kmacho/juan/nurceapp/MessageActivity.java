@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.widget.Toast;
 
 import com.kmacho.juan.nurceapp.Recyclers.AdapterMensajes;
@@ -116,7 +117,7 @@ public void sendMensaje(){
                         int id_user = response.body().getData().get(i).getId_user();
                         int to_id_user = response.body().getData().get(i).getTo_id_user();
                         int leido = response.body().getData().get(i).isLeido();
-                        String mensaje = response.body().getData().get(i).getMensaje();
+                        String mensaje = Html.fromHtml(response.body().getData().get(i).getMensaje()).toString();
                         String fecha = response.body().getData().get(i).getCreated_at();
                         MensajesList item = new MensajesList(id,id_chat,id_user,to_id_user,leido,mensaje,fecha);
                         mensajesLists.add(item);

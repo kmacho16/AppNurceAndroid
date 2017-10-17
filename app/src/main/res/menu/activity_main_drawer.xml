@@ -18,8 +18,12 @@
             android:title="Calendario" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Personal">
         <menu>
+            <item
+                android:id="@+id/posiciones_manage"
+                android:icon="@drawable/ic_add_location"
+                android:title="Agregar Ubicacion" />
             <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_person"

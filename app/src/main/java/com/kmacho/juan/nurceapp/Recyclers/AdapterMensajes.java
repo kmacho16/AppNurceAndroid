@@ -84,7 +84,6 @@ public class AdapterMensajes  extends RecyclerView.Adapter<AdapterMensajes.ViewH
             super(itemView);
             textMensaje = (TextView) itemView.findViewById(R.id.textMensaje);
             textoFecha = (TextView) itemView.findViewById(R.id.textFecha);
-
             cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
 

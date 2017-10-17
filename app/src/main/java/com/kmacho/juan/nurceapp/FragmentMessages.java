@@ -53,7 +53,6 @@ public class FragmentMessages extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         chatLists = new ArrayList<>();
         loadChatRecycler();
-
         return v;
     }
 

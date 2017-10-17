@@ -2,7 +2,9 @@ package com.kmacho.juan.nurceapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     TokenManager tokenManager;
     IdUserPreferences idUserPreferences;
     Call<infoResponse> call;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +85,16 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //getPosts();
+        hideItem();
+    }
+
+    //AQUI SE OCULTAN LOS ICONOS
+    private void hideItem()
+    {
+        Menu nav_Menu = navigationView.getMenu();
+        //nav_Menu.findItem(R.id.event_manage).setVisible(false);
     }
 
 
@@ -186,6 +196,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -205,7 +216,14 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frame,fragment,"Fragment maps");
             fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_manage) {
+        }else if(id == R.id.event_manage){
+            setTitle("Fragment Chat");
+            FragmentCalendario fragment = new FragmentCalendario();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,fragment,"Fragment Eventos");
+            fragmentTransaction.commit();
+
+        }else if (id == R.id.nav_manage) {
 
             setTitle("Fragment Chat");
             FragmentMessages fragment = new FragmentMessages();
@@ -215,7 +233,14 @@ public class MainActivity extends AppCompatActivity
 
             /*Intent intent = new Intent(this,MessageActivity.class);
             startActivity(intent);*/
-        } else if (id == R.id.nav_logout) {
+        }else if(id == R.id.posiciones_manage) {
+            setTitle("Fragment Ubicaciones");
+            Fragmentubicaciones fragment = new Fragmentubicaciones();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,fragment,"Fragment Ubicaciones");
+            fragmentTransaction.commit();
+
+        }else if (id == R.id.nav_logout) {
             tokenManager.deleteToken();
             finish();
             startActivity(new Intent(MainActivity.this, Login.class));

@@ -4,8 +4,10 @@ package com.kmacho.juan.nurceapp.network;
 import com.kmacho.juan.nurceapp.Recyclers.ChatList;
 import com.kmacho.juan.nurceapp.entities.AccessToken;
 import com.kmacho.juan.nurceapp.entities.MenssageResponse;
+import com.kmacho.juan.nurceapp.entities.UbicacionesResponse;
 import com.kmacho.juan.nurceapp.entities.chatResponse;
 import com.kmacho.juan.nurceapp.entities.datos;
+import com.kmacho.juan.nurceapp.entities.eventosResponse;
 import com.kmacho.juan.nurceapp.entities.infoResponse;
 import com.kmacho.juan.nurceapp.entities.personalResponse;
 import com.kmacho.juan.nurceapp.entities.respuestasData;
@@ -52,6 +54,9 @@ public interface ApiService {
     @GET("chat/all")
     Call<chatResponse> chatAll();
 
+    @GET("ubicaciones/personal")
+    Call<UbicacionesResponse> ubicacionesAll();
+
     @POST("chat/personal")
     @FormUrlEncoded
     Call<MenssageResponse> mensajesPersonal(@Field("id") int id_chat);
@@ -59,4 +64,20 @@ public interface ApiService {
     @POST("chat/mensaje")
     @FormUrlEncoded
     Call<respuestasData> sendMensaje(@Field("id_chat") String id_chat, @Field("to_id_user") String to_id_user, @Field("mensaje")String mensaje);
+
+    @POST("ubicaciones/store")
+    @FormUrlEncoded
+    Call<respuestasData> ubicacionesStore(@Field("nombre") String name,@Field("latitud") double lat, @Field("longitud") double lng);
+
+    @POST("ubicaciones/delete")
+    @FormUrlEncoded
+    Call<respuestasData> ubicacionesDelete(@Field("id") String name);
+
+    @GET("eventos/personal")
+    Call<eventosResponse> eventosAll();
+
+    @POST("eventos/day")
+    @FormUrlEncoded
+    Call<eventosResponse> eventosDay(@Field("fecha") String fecha);
+
 }
